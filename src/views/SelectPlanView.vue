@@ -4,7 +4,8 @@
         <p class="main__paragraph">You have the option of monthly or yearly billing</p>
 
         <div class="main__options">
-            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Arcade' }" @click="saveTitle('Arcade', 9, 90)">
+            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Arcade' }"
+                @click="saveTitle('Arcade', 9, 90)">
                 <img src="../assets/images/icon-arcade.svg" alt="icon-arcade">
                 <div class="option__words">
                     <h2 class="option__title">Arcade</h2>
@@ -13,7 +14,8 @@
                 </div>
             </div>
 
-            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Advanced' }" @click="saveTitle('Advanced', 12, 120)">
+            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Advanced' }"
+                @click="saveTitle('Advanced', 12, 120)">
                 <img src="../assets/images/icon-advanced.svg" alt="icon-advanced">
                 <div class="option__words">
                     <h2 class="option__title">Advanced</h2>
@@ -27,18 +29,18 @@
                 <div class="option__words">
                     <h2 class="option__title">Pro</h2>
                     <p class="option__paragraph">{{ !store.yearlyPlan ? '$15/mo' : '$150/yr' }}</p>
-                    <p class="option__yearly-paragraph" v-show="store.yearlyPlan">2 months free</p>    
+                    <p class="option__yearly-paragraph" v-show="store.yearlyPlan">2 months free</p>
                 </div>
             </div>
         </div>
 
         <div class="changeplan">
-            <p class="monthlyplan" :style="{ 'color': !store.yearlyPlan ? '#032a59' : '#969aab'}">Monthly</p>
+            <p class="paragraphplan monthlyplan" :style="{ 'color': !store.yearlyPlan ? '#032a59' : '#969aab' }">Monthly</p>
 
             <button class="toggle-button" @click="toggle">
                 <div :class="{ 'circle-left': !store.yearlyPlan, 'circle-right': store.yearlyPlan }"></div>
             </button>
-            <p class="yearlyplan" :style="{ 'color': store.yearlyPlan ? '#032a59' : '#969aab'}">Yearly</p>
+            <p class="paragraphplan yearlyplan" :style="{ 'color': store.yearlyPlan ? '#032a59' : '#969aab' }">Yearly</p>
         </div>
     </main>
 </template>
@@ -189,4 +191,55 @@ const toggle = () => {
 .toggle-button .circle-right {
     right: 6px;
 }
+
+@media (min-width: 900px) {
+    .main {
+        justify-content: flex-start;
+        width: auto;
+        padding: 1.6rem 1.2rem;
+        position: static;
+        height: 85%;
+    }
+
+    .main__title {
+        font-size: 1.7rem;
+    }
+
+    .main__paragraph {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+        line-height: normal;
+    }
+
+    .main__options {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        height: 45%;
+    }
+
+    .option {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-evenly;
+        width: 30%;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        padding: 0 0.8rem;
+    }
+
+    img{
+        width: 35px;
+        height: 35px;
+    }
+
+    .option__title, .paragraphplan{
+        font-size: .9rem;
+    }
+
+    .option__paragraph{
+        font-size: .8rem;
+    }
+}
 </style>
+

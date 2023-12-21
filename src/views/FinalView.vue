@@ -44,4 +44,21 @@
         margin-bottom: 1.4rem;
         line-height: 1.4rem;
     }
+
+    @media (min-width: 900px) {
+    .main{
+        position: static;
+        width: auto;
+        height: 100%;
+        padding: 0 2rem;
+    }
+
+    .main__title{
+        font-size: 1.7rem;
+    }
+
+    .main__paragraph{
+        font-size: .9rem;
+    }
+}
 </style>

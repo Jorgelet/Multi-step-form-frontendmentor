@@ -102,6 +102,7 @@ const saveService = (event) => {
     padding: .8rem;
     outline: var(--Light-gray) solid .3px;
     border: none;
+    position: relative;
 }
 
 .flex__container.checked {
@@ -134,5 +135,31 @@ const saveService = (event) => {
     font-size: 1rem;
     font-weight: 500;
     color: hsl(243, 67%, 40%);
+}
+
+@media (min-width: 900px) {
+    .main{
+        position: static;
+        width: auto;
+    }
+
+    .main__paragraph{
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .price{
+        position: absolute;
+        right: 15px;
+        font-size: .9rem;
+    }
+
+    .words__paragraph{
+        font-size: .82rem;
+    }
+
+    .words__title{
+        font-size: .9rem;
+    }
 }
 </style>

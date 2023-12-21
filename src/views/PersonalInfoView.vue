@@ -40,7 +40,7 @@ let email = ref('');
 let phone = ref('');
 let ajustBtn = ref(false);
 
-const emit = defineEmits(['mounted', 'beforeUnmount','BackPlan']);
+const emit = defineEmits(['mounted', 'beforeUnmount', 'BackPlan']);
 
 
 
@@ -113,6 +113,7 @@ onBeforeUnmount(() => {
 .main__title {
     font-size: 1.6rem;
     margin-bottom: .7rem;
+    color: var(--Marine-blue);
 }
 
 .main__paragraph {
@@ -150,12 +151,31 @@ input {
 }
 
 .btn-container {
-    display: flex;
-    margin: auto;
-    padding: 30px 20px 10px;
-    justify-content: flex-end;
     position: absolute;
-    bottom: 4px;
+    bottom: 0;
+    left: 0;
     right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: auto;
+    padding: 13px 20px;
+    background-color: #fff;
+}
+
+@media (min-width: 900px) {
+    .main{
+        position: static;
+        width: auto;
+    }
+
+    .main__paragraph{
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    label{
+        font-size: .9rem;
+    }
 }
 </style>

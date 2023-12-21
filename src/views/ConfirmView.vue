@@ -139,4 +139,24 @@ const back = () => {
     color: var(--Purplish-blue);
     font-weight: 700;
 }
+
+@media (min-width: 900px) {
+    .main{
+        position: static;
+        width: auto;
+    }
+
+    .main__paragraph{
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .words__info, .words__title, .price{
+        font-size: .9rem;
+    }
+
+    .price-total{
+        font-size: 1rem;
+    }
+}
 </style>
