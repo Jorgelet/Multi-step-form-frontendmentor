@@ -69,7 +69,7 @@ const toggle = () => {
 
 watch(() => store.yearlyPlan, () => {
     const plan = plans.find(plan => plan.name === currentTitle);
-    if (plan) { // Add this line to prevent errors when plan is undefined
+    if (plan) { 
         savePlan(plan);
     }
 });
