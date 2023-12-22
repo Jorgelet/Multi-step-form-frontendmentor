@@ -4,31 +4,13 @@
         <p class="main__paragraph">You have the option of monthly or yearly billing</p>
 
         <div class="main__options">
-            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Arcade' }"
-                @click="saveTitle('Arcade', 9, 90)">
-                <img src="../assets/images/icon-arcade.svg" alt="icon-arcade">
+            <div v-for="plan in plans" :key="plan.name" class="option"
+                :class="{ checked: namePlanstore.namePlan === plan.name }" @click="savePlan(plan)">
+                <img :src="`/images/icon-${plan.name.toLowerCase()}.svg`" :alt="`icon-${plan.name.toLowerCase()}`">
                 <div class="option__words">
-                    <h2 class="option__title">Arcade</h2>
-                    <p class="option__paragraph">{{ !store.yearlyPlan ? '$9/mo' : '$90/yr' }}</p>
-                    <p class="option__yearly-paragraph" v-show="store.yearlyPlan">2 months free</p>
-                </div>
-            </div>
-
-            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Advanced' }"
-                @click="saveTitle('Advanced', 12, 120)">
-                <img src="../assets/images/icon-advanced.svg" alt="icon-advanced">
-                <div class="option__words">
-                    <h2 class="option__title">Advanced</h2>
-                    <p class="option__paragraph">{{ !store.yearlyPlan ? '$12/mo' : '$120/yr' }}</p>
-                    <p class="option__yearly-paragraph" v-show="store.yearlyPlan">2 months free</p>
-                </div>
-            </div>
-
-            <div class="option" :class="{ checked: namePlanstore.namePlan === 'Pro' }" @click="saveTitle('Pro', 15, 150)">
-                <img src="../assets/images/icon-pro.svg" alt="icon-pro">
-                <div class="option__words">
-                    <h2 class="option__title">Pro</h2>
-                    <p class="option__paragraph">{{ !store.yearlyPlan ? '$15/mo' : '$150/yr' }}</p>
+                    <h2 class="option__title">{{ plan.name }}</h2>
+                    <p class="option__paragraph">{{ !store.yearlyPlan ? `$${plan.priceMonth}/mo` : `$${plan.priceYear}/yr`
+                    }}</p>
                     <p class="option__yearly-paragraph" v-show="store.yearlyPlan">2 months free</p>
                 </div>
             </div>
@@ -50,34 +32,47 @@ import { watch } from 'vue'
 import { planStore } from '../stores/optionPlan';
 import { namePlanStore } from '../stores/optionPlan';
 
+
+const plans = [
+    { name: 'Arcade', priceMonth: 9, priceYear: 90 },
+    { name: 'Advanced', priceMonth: 12, priceYear: 120 },
+    { name: 'Pro', priceMonth: 15, priceYear: 150 },
+];
+
 let currentTitle = '';
 let currentPriceMonth = 0;
 let currentPriceYear = 0;
 
-const saveTitle = (title, pricemonth, priceyr) => {
-    currentTitle = title;
-    currentPriceMonth = pricemonth;
-    currentPriceYear = priceyr;
-
-    namePlanstore.changeNamePlan(title);
-
-    if (!store.yearlyPlan) {
-        namePlanstore.changePricePlan(pricemonth);
-    } else {
-        namePlanstore.changePricePlan(priceyr);
-    }
-};
-
 const namePlanstore = namePlanStore();
 const store = planStore();
 
-watch(() => store.yearlyPlan, () => {
-    saveTitle(currentTitle, currentPriceMonth, currentPriceYear);
-});
+const savePlan = (plan) => {
+    if (!plan) return; 
+
+    currentTitle = plan.name;
+    currentPriceMonth = plan.priceMonth;
+    currentPriceYear = plan.priceYear;
+
+    namePlanstore.changeNamePlan(plan.name);
+
+    if (!store.yearlyPlan) {
+        namePlanstore.changePricePlan(plan.priceMonth);
+    } else {
+        namePlanstore.changePricePlan(plan.priceYear);
+    }
+};
 
 const toggle = () => {
     store.changepPlan();
 };
+
+
+watch(() => store.yearlyPlan, () => {
+    const plan = plans.find(plan => plan.name === currentTitle);
+    if (plan) { // Add this line to prevent errors when plan is undefined
+        savePlan(plan);
+    }
+});
 </script>
 
 <style scoped>
@@ -228,16 +223,17 @@ const toggle = () => {
         padding: 0 0.8rem;
     }
 
-    img{
+    img {
         width: 35px;
         height: 35px;
     }
 
-    .option__title, .paragraphplan{
+    .option__title,
+    .paragraphplan {
         font-size: .9rem;
     }
 
-    .option__paragraph{
+    .option__paragraph {
         font-size: .8rem;
     }
 }
