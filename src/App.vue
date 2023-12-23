@@ -3,43 +3,15 @@
     <div class="container">
       <div class="header__container">
         <header class="header">
-          <div class="header__numbers">
-            <div class="numbers__containers">
-              <div class="number" :class="{ 'number__active': currentStep === 1 }">1</div>
-              <div class="number-toggle" v-if="isLargeScreen">
-                <p class="paragraph-toggle">STEP 1</p>
-                <h3 class="title-toggle">YOUR INFO</h3>
+            <div class="header__numbers">
+              <div class="numbers__containers" v-for="(stepInfo, index) in stepsInfo" :key="index">
+                <div class="number" :class="{ 'number__active': currentStep === stepInfo.step }">{{ stepInfo.step }}</div>
+                <div class="number-toggle" v-if="isLargeScreen">
+                  <p class="paragraph-toggle">STEP {{ stepInfo.step }}</p>
+                  <h3 class="title-toggle">{{ stepInfo.title }}</h3>
+                </div>
               </div>
             </div>
-            <div class="numbers__containers">
-              <div class="number" :class="{ 'number__active': currentStep === 2 }">2</div>
-              <div class="number-toggle" v-if="isLargeScreen">
-                <p class="paragraph-toggle">STEP 2</p>
-                <h3 class="title-toggle">SELECT PLAN</h3>
-
-              </div>
-
-            </div>
-            <div class="numbers__containers">
-              <div class="number" :class="{ 'number__active': currentStep === 3 }">3</div>
-              <div class="number-toggle" v-if="isLargeScreen">
-                <p class="paragraph-toggle">STEP 3</p>
-                <h3 class="title-toggle">ADD-ONS</h3>
-
-              </div>
-
-            </div>
-            <div class="numbers__containers">
-              <div class="number" :class="{ 'number__active': currentStep === 4 || currentStep === 5}">4</div>
-              <div class="number-toggle" v-if="isLargeScreen">
-                <p class="paragraph-toggle">STEP 4</p>
-                <h3 class="title-toggle">SUMMARY</h3>
-
-              </div>
-
-
-            </div>
-          </div>
         </header>
       </div>
 
@@ -77,6 +49,12 @@ import ConfirmBilling from './components/ConfirmBilling.vue';
 let infoview = ref(false);
 let currentStep = ref(1);
 const steps = [PersonalInfoView, SelectPlanView, PickAddView, ConfirmView, FinalView];
+const stepsInfo = [
+  { step: 1, title: 'YOUR INFO' },
+  { step: 2, title: 'SELECT PLAN' },
+  { step: 3, title: 'ADD-ONS' },
+  { step: 4, title: 'SUMMARY' },
+];
 
 let isLargeScreen = ref(window.innerWidth >= 900);
 
@@ -205,7 +183,7 @@ const backChangePlan = () => {
     border-radius: 12px;
   }
 
-  .header__container{
+  .header__container {
     background-color: unset;
   }
 
